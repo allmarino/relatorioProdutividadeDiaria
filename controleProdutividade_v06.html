@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="FileSaver.js"></script>
+    <title>Controle Produtividade</title>
+
+    <style>
+        button{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 14pt;
+            
+                  
+        }
+        h1{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        #data, label{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 14pt;
+        }
+
+        #trabalhoExe, label{
+            font-family: 'Arial', sans-serif;
+            font-size: 14pt;
+        }
+
+        #campoObs label{
+            font-family: 'Arial', sans-serif;
+            font-size: 14pt;
+        }
+
+
+        label{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 14pt;
+        }
+
+        .iniciar{
+            color: rgb(2, 85, 2);
+                    }
+
+        .pausar{
+            color:orangered;
+                    }
+
+        .fim{
+            color: rgb(5, 5, 109);
+                    }
+
+        .interval{
+            color:rgb(88, 88, 6);
+                    }
+        .interno{
+            color:purple;
+                    }
+
+        .relatorio{
+            margin-left: 40px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h1>Controle de Produtividade</h1>
+    <button onclick="dataMes()">Data</button>
+    <button class="iniciar" onclick="iniciarTrabalho()">Iniciar Trabalho</button>
+    <button class="pausar" onclick="pausar()">Pausar Trabalho</button>
+    <button class="fim" onclick="finalizar()">Finalizar Trabalho</button>
+    <button class="interval" onclick="intervalo()">Intervalo</button>
+    <button class="interno" onclick="interno()">Interno</button>
+    <button class="relatorio" onclick='gerarRelatorio()'>Gerar Relatório</button>
+   
+    
+    <div id="data"></div>
+    <div id="trabalhoExe"></div>
+    <div id="campoObs"></div>
+    
+    
+    <script>
+        var msg = "";
+        var data = new Date();
+        var hours = new Date();
+        function dataMes(){
+            var msg = "";
+            var dia = data.getDate();
+            var mes = data.getMonth();
+            var ano = data.getFullYear();
+            if (dia < 10){
+                dia = "0"+data.getDate();
+            }
+            if (mes < 10){
+                mes = mes+1;
+                mes = "0"+mes;                
+            }
+            var msg = "";
+            msg += "<hr>===== Data: "+dia+"/"+mes+"/"+ano+" =====<hr>";
+            document.getElementById("data").innerHTML += msg;
+        
+        }
+        function iniciarTrabalho(){
+            var msg = "";
+            var hours = new Date();
+            var hora = hours.getHours();
+            if (hora < 10){
+                hora = "0"+hours.getHours();
+            }
+            var minutos = hours.getMinutes();
+            if (minutos < 10){
+                minutos = "0"+hours.getMinutes();
+            }
+            var OS = prompt("Digite o número da ordem:");
+            var cliente = prompt("Nome do cliente:");
+            var vendedor = prompt("Nome do Vendedor:");
+            var tipo = prompt("Digite o tipo de trabalho:");
+
+            msg += "Início: "+hora+":"+minutos+" | OS: "+OS+" | Nome do cliente: "+cliente+" | Vendedor: "+vendedor+" | Tipo de trabalho: "+tipo;
+            document.getElementById("trabalhoExe").innerHTML += msg;
+            document.getElementById("trabalhoExe").style.color='rgb(2, 85, 2)';
+            
+        }
+
+        function pausar(){
+        var msgP = "";
+        var hours = new Date();
+            var hora = hours.getHours();
+            if (hora < 10){
+                hora = "0"+hours.getHours();
+            }
+            var minutos = hours.getMinutes();
+            if (minutos < 10){
+                minutos = "0"+hours.getMinutes();
+            }
+        var motivoP = prompt("Qual é o motivo da pausa:");
+
+        msgP += " | Pausa "+hora+":"+minutos+" | "+motivoP+"<br>";
+        document.getElementById("trabalhoExe").innerHTML += msgP;
+        document.getElementById("trabalhoExe").style.color='orangered';
+        }
+
+
+        function finalizar(){
+        var msg = "";
+        var hours = new Date();
+            var hora = hours.getHours();
+            if (hora < 10){
+                hora = "0"+hours.getHours();
+            }
+            var minutos = hours.getMinutes();
+            if (minutos < 10){
+                minutos = "0"+hours.getMinutes();
+            }
+        
+        msg += " | Final: "+hora+":"+minutos+"<br>";
+        document.getElementById("trabalhoExe").innerHTML += msg;
+        document.getElementById("trabalhoExe").style.color='rgb(5, 5, 109)';
+        }
+
+        function intervalo(){
+        var msg = "";
+        var hours = new Date();
+            var hora = hours.getHours();
+            if (hora < 10){
+                hora = "0"+hours.getHours();
+            }
+            var minutos = hours.getMinutes();
+            if (minutos < 10){
+                minutos = "0"+hours.getMinutes();
+            }
+        var interval = prompt("Motivo da pausa:");
+        msg += "Descrição do Intervalo: "+interval+" | Início "+hora+":"+minutos;
+        document.getElementById("trabalhoExe").innerHTML += msg;
+        document.getElementById("trabalhoExe").style.color='rgb(88, 88, 6)';
+        }
+
+        function interno(){
+            var msg = "";
+        var hours = new Date();
+            var hora = hours.getHours();
+            if (hora < 10){
+                hora = "0"+hours.getHours();
+            }
+            var minutos = hours.getMinutes();
+            if (minutos < 10){
+                minutos = "0"+hours.getMinutes();
+            }
+            var solicitante = prompt("Nome do solicitante:");
+            var setor = prompt("Setor:");
+            var tipo = prompt("Descritivo:");
+
+            msg += "Início: "+hora+":"+minutos+" | Nome do solicitante: "+solicitante+" | Setor: "+setor+" | Descritivo: "+tipo;
+            document.getElementById("trabalhoExe").innerHTML += msg;
+            document.getElementById("trabalhoExe").style.color='purple';
+            
+        }
+
+        function obs(){
+            var msg = "";
+            var mensagem = prompt("Digite sua mensagem");
+            msg += mensagem;
+            document.getElementById("campoObs").innerHTML += msg;
+        }
+        
+        function hr(){
+            var msg = "";
+            msg += "<hr>";
+            document.getElementById("campoObs").innerHTML += msg;
+        }
+
+        function gerarRelatorio(){
+            var pegar_dados = document.getElementById('trabalhoExe').innerText;
+            var data = document.getElementById('data').innerText;
+
+            var blob = new Blob([pegar_dados], {type: "text/plain;charset=utf-8"});
+            saveAs(blob, "Relatório de Produtividade: "+data+".txt");
+
+        }
+
+
+
+        
+        
+
+    </script>
+
+
+
+</body>
+</html>
